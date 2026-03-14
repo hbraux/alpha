@@ -2,9 +2,15 @@ package fr.braux.alpha
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Rectangle
 
-const val SCREEN_WIDTH  = 800
-const val SCREEN_HEIGHT = 480
+/** Returns a new Rectangle shrunk inward by [amount] on every side. */
+fun Rectangle.shrink(amount: Float): Rectangle =
+    Rectangle(x + amount, y + amount, width - amount * 2, height - amount * 2)
+
+const val SCREEN_WIDTH   = 800
+const val SCREEN_HEIGHT  = 480
+const val SCROLL_SPEED   = 130f
 
 class AlphaGame : Game() {
 

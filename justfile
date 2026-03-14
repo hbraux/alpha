@@ -8,4 +8,4 @@ build:
 
 # Run the game
 run:
-    mvn exec:java -Dexec.mainClass=fr.braux.alpha.DesktopLauncherKt
+    mvn compile exec:java

@@ -3,24 +3,29 @@ package fr.braux.alpha
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.ScreenAdapter
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 
 class GameScreen(private val game: AlphaGame) : ScreenAdapter() {
 
-    private val shapes = ShapeRenderer()
+    private val shapes     = ShapeRenderer()
+    private val background = ScrollingBackground()
+    private val meteors    = MeteorManager()
+    private val enemies    = EnemyManager()
+    private val bullets    = BulletManager()
 
-    // World units per second
+    private val shipTexture = Texture(Gdx.files.internal("sprites/ship.png"))
+    private val ship = Sprite(shipTexture).apply {
+        setSize(60f, 40f)
+        setOriginCenter()
+        rotation = 90f
+    }
+
     private val playerSpeed = 200f
-
-    // Player position (world coordinates, origin = bottom-left)
     private var playerX = 80f
-    private var playerY = SCREEN_HEIGHT / 2f
-
-    // Player size
-    private val playerW = 40f
-    private val playerH = 20f
+    private var playerY = SCREEN_HEIGHT / 2f - ship.height / 2f
 
     override fun render(delta: Float) {
         handleInput(delta)
@@ -29,6 +34,9 @@ class GameScreen(private val game: AlphaGame) : ScreenAdapter() {
     }
 
     private fun handleInput(delta: Float) {
+        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) Gdx.app.exit()
+        if (Gdx.input.isKeyJustPressed(Keys.SPACE))
+            bullets.fire(playerX + ship.width, playerY + ship.height / 2f)
         if (Gdx.input.isKeyPressed(Keys.UP)    || Gdx.input.isKeyPressed(Keys.W))
             playerY += playerSpeed * delta
         if (Gdx.input.isKeyPressed(Keys.DOWN)  || Gdx.input.isKeyPressed(Keys.S))
@@ -40,29 +48,38 @@ class GameScreen(private val game: AlphaGame) : ScreenAdapter() {
     }
 
     private fun update(delta: Float) {
-        // Clamp player inside the viewport
-        playerX = playerX.coerceIn(0f, SCREEN_WIDTH  - playerW)
-        playerY = playerY.coerceIn(0f, SCREEN_HEIGHT - playerH)
+        background.update(delta)
+        meteors.update(delta)
+        enemies.update(delta)
+        bullets.update(delta, enemies, meteors)
+        playerX = playerX.coerceIn(0f, SCREEN_WIDTH  - ship.width)
+        playerY = playerY.coerceIn(0f, SCREEN_HEIGHT - ship.height)
+        ship.setPosition(playerX, playerY)
+        if (meteors.collidesWith(ship.boundingRectangle.shrink(10f)) || enemies.collidesWith(ship.boundingRectangle.shrink(10f))) {
+            game.setScreen(GameOverScreen(game))
+        }
     }
 
     private fun draw() {
         Gdx.gl.glClearColor(0f, 0f, 0.1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        shapes.begin(ShapeRenderer.ShapeType.Filled)
+        background.draw(shapes)
+        meteors.draw(game.batch)
+        enemies.draw(game.batch)
+        bullets.drawBullets(shapes)
+        bullets.drawExplosions(game.batch)
 
-        // Player ship (simple triangle)
-        shapes.color = Color.CYAN
-        shapes.triangle(
-            playerX,           playerY + playerH / 2,   // nose
-            playerX - playerW, playerY + playerH,        // top-left
-            playerX - playerW, playerY                   // bottom-left
-        )
-
-        shapes.end()
+        game.batch.begin()
+        ship.draw(game.batch)
+        game.batch.end()
     }
 
     override fun dispose() {
         shapes.dispose()
+        shipTexture.dispose()
+        meteors.dispose()
+        enemies.dispose()
+        bullets.dispose()
     }
 }
