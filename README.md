@@ -4,4 +4,5 @@ A simple 2D horizontal shooter written in Kotlin and using https://libgdx.com/ l
 
 Graphic and Sound assets from https://kenney.nl/
 
+![img.png](img.png)
 
