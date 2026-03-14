@@ -57,6 +57,8 @@ class MeteorManager {
 
     fun isHitBy(rect: Rectangle) = meteors.any { it.sprite.boundingRectangle.overlaps(rect) }
 
+    fun boundingRectangles(): List<Rectangle> = meteors.map { it.sprite.boundingRectangle }
+
     fun dispose() = texture.dispose()
 
     private fun nextSpawnInterval() =

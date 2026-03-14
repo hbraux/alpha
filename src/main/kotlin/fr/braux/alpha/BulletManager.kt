@@ -22,15 +22,20 @@ private data class Explosion(val x: Float, val y: Float, var timer: Float = EXPL
 class BulletManager {
 
     private val explosionTexture = Texture(Gdx.files.internal("sprites/explode.png"))
+    private val shootSound       = Gdx.audio.newSound(Gdx.files.internal("sounds/shoot.ogg"))
+    private val explodeSound     = Gdx.audio.newSound(Gdx.files.internal("sounds/explode.ogg"))
     private val bullets    = mutableListOf<Bullet>()
     private val explosions = mutableListOf<Explosion>()
 
     fun fire(x: Float, y: Float) {
         bullets += Bullet(x, y)
+        shootSound.play()
     }
 
-    fun update(delta: Float, enemies: EnemyManager, meteors: MeteorManager) {
+    /** Returns the number of enemies destroyed this frame. */
+    fun update(delta: Float, enemies: EnemyManager, meteors: MeteorManager): Int {
         val dead = mutableListOf<Bullet>()
+        var kills = 0
 
         for (bullet in bullets) {
             bullet.x += BULLET_SPEED * delta
@@ -41,7 +46,9 @@ class BulletManager {
             val hitCenter = enemies.removeFirstHit(rect)
             if (hitCenter != null) {
                 explosions += Explosion(hitCenter.x - EXPLOSION_SIZE / 2f, hitCenter.y - EXPLOSION_SIZE / 2f)
+                explodeSound.play()
                 dead += bullet
+                kills++
                 continue
             }
 
@@ -53,6 +60,7 @@ class BulletManager {
         bullets.removeAll(dead)
         explosions.forEach  { it.timer -= delta }
         explosions.removeAll { it.timer <= 0f }
+        return kills
     }
 
     fun drawBullets(shapes: ShapeRenderer) {
@@ -68,5 +76,9 @@ class BulletManager {
         batch.end()
     }
 
-    fun dispose() = explosionTexture.dispose()
+    fun dispose() {
+        explosionTexture.dispose()
+        shootSound.dispose()
+        explodeSound.dispose()
+    }
 }

@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Rectangle
 fun Rectangle.shrink(amount: Float): Rectangle =
     Rectangle(x + amount, y + amount, width - amount * 2, height - amount * 2)
 
-const val SCREEN_WIDTH   = 800
-const val SCREEN_HEIGHT  = 480
+const val SCREEN_WIDTH   = 1280
+const val SCREEN_HEIGHT  = 720
 const val SCROLL_SPEED   = 130f
 
 class AlphaGame : Game() {
