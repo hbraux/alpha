@@ -13,6 +13,7 @@
 
         <kotlin.version>2.2.20</kotlin.version>
         <libgdx.version>1.12.1</libgdx.version>
+        <gdx-controllers.version>2.2.4</gdx-controllers.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
@@ -45,6 +46,30 @@
             <artifactId>gdx-platform</artifactId>
             <version>${libgdx.version}</version>
             <classifier>natives-desktop</classifier>
+        </dependency>
+
+        <!-- LibGDX controllers extension -->
+        <dependency>
+            <groupId>com.badlogicgames.gdx-controllers</groupId>
+            <artifactId>gdx-controllers-core</artifactId>
+            <version>${gdx-controllers.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>gdx</artifactId>
+                    <groupId>com.badlogicgames.gdx</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.gdx-controllers</groupId>
+            <artifactId>gdx-controllers-desktop</artifactId>
+            <version>${gdx-controllers.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>gdx</artifactId>
+                    <groupId>com.badlogicgames.gdx</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Kotlin Test -->

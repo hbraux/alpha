@@ -1,7 +1,6 @@
 package fr.braux.alpha
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
@@ -43,16 +42,17 @@ class GameScreen(private val game: AlphaGame) : ScreenAdapter() {
     }
 
     private fun handleInput(delta: Float) {
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) Gdx.app.exit()
-        if (Gdx.input.isKeyJustPressed(Keys.SPACE))
+        if (GameConfig.isJustPressed(GameConfig.Action.QUIT))
+            Gdx.app.exit()
+        if (GameConfig.isJustPressed(GameConfig.Action.FIRE))
             bullets.fire(playerX + ship.width, playerY + ship.height / 2f)
-        if (Gdx.input.isKeyPressed(Keys.UP)    || Gdx.input.isKeyPressed(Keys.W))
+        if (GameConfig.isPressed(GameConfig.Action.UP))
             playerY += playerSpeed * delta
-        if (Gdx.input.isKeyPressed(Keys.DOWN)  || Gdx.input.isKeyPressed(Keys.S))
+        if (GameConfig.isPressed(GameConfig.Action.DOWN))
             playerY -= playerSpeed * delta
-        if (Gdx.input.isKeyPressed(Keys.LEFT)  || Gdx.input.isKeyPressed(Keys.A))
+        if (GameConfig.isPressed(GameConfig.Action.LEFT))
             playerX -= playerSpeed * delta
-        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
+        if (GameConfig.isPressed(GameConfig.Action.RIGHT))
             playerX += playerSpeed * delta
     }
 

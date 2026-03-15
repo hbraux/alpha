@@ -24,6 +24,7 @@ Scan **every word** in the rephrased requirements (and in any existing documenta
 - It is not the first word of a sentence.
 - It is not written in ALL CAPS (i.e. at least one character after the first must be lowercase).
 - It is a **domain concept** — a noun naming a game entity, system component, screen, manager, or other named concept (e.g. `Ship`, `Bullet`, `Enemy`). Skip generic English words that happen to be capitalised (e.g. `The`, `When`, `Each`, `If`, `This`).
+- It is in Requirements section 
 
 Maintain a **seen set** of concept words already processed in this run to avoid creating the same stub twice.
 

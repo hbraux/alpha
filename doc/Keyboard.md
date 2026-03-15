@@ -1,16 +1,10 @@
 # Keyboard
 
-The **Keyboard** is the primary input device used to control the **[Ship](Ship.md)** and trigger actions such as firing a **[Bullet](Bullet.md)** with key SPACE.
+The **Keyboard** is one of the supported input devices used to control the Ship. The mapping of physical keys to abstract action names is defined in the Configuration file.
 
 ## Requirements
 
-1. When the player holds **W**, the **[Ship](Ship.md)** must move upward.
-2. When the player holds **S**, the **[Ship](Ship.md)** must move downward.
-3. When the player holds **A**, the **[Ship](Ship.md)** must move leftward.
-4. When the player holds **D**, the **[Ship](Ship.md)** must move rightward.
-5. When the player presses **ESC**, the game must exit immediately.
-
-## GameOver screen bindings
-
-6. When the player presses **SPACE** on the **[GameOver](GameOver.md)** screen, a fresh game session must start.
-7. When the player presses **ESC** on the **[GameOver](GameOver.md)** screen, the game must exit.
+1. The **Keyboard** shall support the abstract actions UP, DOWN, LEFT, RIGHT, FIRE, and QUIT.
+2. The mapping of physical keys to these abstract actions shall be defined in the [Configuration](Configuration.md) file.
+3. During gameplay, FIRE triggers the [Ship](Ship.md) to fire one [Bullet](Bullet.md) and QUIT exits the game immediately.
+4. On the [GameOver](GameOver.md) screen, FIRE starts a fresh session and QUIT exits the game.

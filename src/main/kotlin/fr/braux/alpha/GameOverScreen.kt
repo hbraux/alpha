@@ -1,7 +1,6 @@
 package fr.braux.alpha
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
@@ -24,8 +23,8 @@ class GameOverScreen(private val game: AlphaGame) : ScreenAdapter() {
     private val layout = GlyphLayout()
 
     override fun render(delta: Float) {
-        if (Gdx.input.isKeyJustPressed(Keys.SPACE)) game.setScreen(GameScreen(game))
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) Gdx.app.exit()
+        if (GameConfig.isJustPressed(GameConfig.Action.FIRE)) game.setScreen(GameScreen(game))
+        if (GameConfig.isJustPressed(GameConfig.Action.QUIT)) Gdx.app.exit()
 
         Gdx.gl.glClearColor(0f, 0f, 0.1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
