@@ -27,7 +27,7 @@ class GameScreen(private val game: AlphaGame) : ScreenAdapter() {
 
     private val scoreFont = BitmapFont().apply {
         data.setScale(1.5f)
-        region.texture.setFilter(com.badlogic.gdx.graphics.Texture.TextureFilter.Linear, com.badlogic.gdx.graphics.Texture.TextureFilter.Linear)
+        region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
     }
     private val scoreLayout = GlyphLayout()
     private var score = 0
@@ -64,7 +64,7 @@ class GameScreen(private val game: AlphaGame) : ScreenAdapter() {
         playerX = playerX.coerceIn(0f, SCREEN_WIDTH  - ship.width)
         playerY = playerY.coerceIn(0f, SCREEN_HEIGHT - ship.height)
         ship.setPosition(playerX, playerY)
-        val shipHitbox = ship.boundingRectangle.shrink(10f)
+        val shipHitbox = ship.boundingRectangle
         if (meteors.collidesWith(shipHitbox) || enemies.collidesWith(shipHitbox) || enemies.missileCollidesWithShip(shipHitbox)) {
             game.setScreen(GameOverScreen(game))
         }

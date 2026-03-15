@@ -53,7 +53,7 @@ class MeteorManager {
         batch.end()
     }
 
-    fun collidesWith(rect: Rectangle) = meteors.any { it.sprite.boundingRectangle.shrink(8f).overlaps(rect) }
+    fun collidesWith(rect: Rectangle) = meteors.any { it.sprite.boundingRectangle.overlaps(rect) }
 
     fun isHitBy(rect: Rectangle) = meteors.any { it.sprite.boundingRectangle.overlaps(rect) }
 

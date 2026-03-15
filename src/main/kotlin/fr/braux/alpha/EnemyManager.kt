@@ -88,11 +88,11 @@ class EnemyManager {
         shapes.end()
     }
 
-    fun collidesWith(rect: Rectangle) = enemies.any { it.sprite.boundingRectangle.shrink(8f).overlaps(rect) }
+    fun collidesWith(rect: Rectangle) = enemies.any { it.sprite.boundingRectangle.overlaps(rect) }
 
     /** Removes the first enemy hit by [rect] and returns its center, or null if no hit. */
     fun removeFirstHit(rect: Rectangle): Vector2? {
-        val hit = enemies.firstOrNull { it.sprite.boundingRectangle.shrink(8f).overlaps(rect) } ?: return null
+        val hit = enemies.firstOrNull { it.sprite.boundingRectangle.overlaps(rect) } ?: return null
         enemies.remove(hit)
         val b = hit.sprite.boundingRectangle
         return Vector2(b.x + b.width / 2f, b.y + b.height / 2f)
