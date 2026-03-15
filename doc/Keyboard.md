@@ -9,3 +9,8 @@ The **Keyboard** is the primary input device used to control the **[Ship](Ship.m
 3. When the player holds **A**, the **[Ship](Ship.md)** must move leftward.
 4. When the player holds **D**, the **[Ship](Ship.md)** must move rightward.
 5. When the player presses **ESC**, the game must exit immediately.
+
+## GameOver screen bindings
+
+6. When the player presses **SPACE** on the **[GameOver](GameOver.md)** screen, a fresh game session must start.
+7. When the player presses **ESC** on the **[GameOver](GameOver.md)** screen, the game must exit.

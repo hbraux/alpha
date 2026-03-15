@@ -12,7 +12,7 @@ The user's description is provided as the argument to this command: $ARGUMENTS
 
 ### Rule 1 — Rephrase into clear requirements
 
-Rewrite the description into precise, unambiguous requirement statements. Use imperative language ("The system shall…", "When X occurs, Y must…"). Remove vague terms and expand implied behaviour. Present the rephrased requirements to the user before proceeding.
+Rewrite the description into precise, unambiguous requirement statements. Use imperative language ("The system shall…", "When X occurs, Y must…"). Remove vague terms and expand implied behaviour. **Omit all technical implementation details** such as exact numeric values (speeds, sizes, durations, counts), colours, and asset paths — describe behaviour in functional terms only (e.g. "moves leftward at scroll speed" not "moves at 130 px/s"; "displayed briefly" not "displayed for 1 second"). Present the rephrased requirements to the user before proceeding.
 
 ### Rule 2 — Concept-word linking
 
@@ -61,6 +61,5 @@ If no inconsistencies are found, proceed directly to the output steps.
 
 1. **Show rephrased requirements** — present the rewritten requirement statements.
 2. **Report inconsistencies** (if any) and wait for the user's resolution choice before continuing.
-3. **List files to create/modify** — tell the user which `doc/` files will be created or updated and why, then **wait for the user to confirm** before writing anything.
-4. **Write the documentation** — create or update the files using the Write or Edit tools.
-5. **Summarise** — list every file created or modified with a one-line description of the change.
+3. **Write the documentation** — create or update the files using the Write or Edit tools. Do not ask for confirmation before writing.
+4. **Summarise** — list every file created or modified with a one-line description of the change.
