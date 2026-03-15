@@ -46,10 +46,10 @@ object GameConfig {
         if (device == "joystick") {
             val controller = Controllers.getControllers().firstOrNull() ?: return false
             return when (action) {
-                Action.UP    -> controller.getButton(DPAD_UP)
-                Action.DOWN  -> controller.getButton(DPAD_DOWN)
-                Action.LEFT  -> controller.getButton(DPAD_LEFT)
-                Action.RIGHT -> controller.getButton(DPAD_RIGHT)
+                Action.UP    -> controller.getButton(DPAD_UP)    || controller.getAxis(1) < -0.7f
+                Action.DOWN  -> controller.getButton(DPAD_DOWN)  || controller.getAxis(1) >  0.7f
+                Action.LEFT  -> controller.getButton(DPAD_LEFT)  || controller.getAxis(0) < -0.7f
+                Action.RIGHT -> controller.getButton(DPAD_RIGHT) || controller.getAxis(0) >  0.7f
                 Action.FIRE  -> controller.getButton(0)
                 Action.QUIT  -> false
             }

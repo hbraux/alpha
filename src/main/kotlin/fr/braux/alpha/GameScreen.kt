@@ -2,6 +2,7 @@ package fr.braux.alpha
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
+import com.badlogic.gdx.controllers.Controllers
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
@@ -41,7 +42,14 @@ class GameScreen(private val game: AlphaGame) : ScreenAdapter() {
         draw()
     }
 
+    private fun debugController() {
+        val c = Controllers.getControllers().firstOrNull() ?: return
+        (0..10).map { it to c.getAxis(it) }.filter { (_, v) -> Math.abs(v) > 0.1f }
+            .takeIf { it.isNotEmpty() }?.let { Gdx.app.log("CTRL", "axes=$it") }
+    }
+
     private fun handleInput(delta: Float) {
+        debugController()
         if (GameConfig.isJustPressed(GameConfig.Action.QUIT))
             Gdx.app.exit()
         if (GameConfig.isJustPressed(GameConfig.Action.FIRE))
